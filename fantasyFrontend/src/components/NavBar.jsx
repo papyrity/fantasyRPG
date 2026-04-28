@@ -11,13 +11,16 @@ function NavBar(){
 
             <ul>
                 <li>
-                    <Link to='/home'>Home</Link>
+                    <Link to='/'>Home</Link>
                 </li>
                 <li>
                     <Link to='/inventory'>Inventory</Link>
                 </li>
                 <li>
                     <Link to='/quests'>Quests</Link>
+                </li>
+                <li>
+                    <Link to='/craft'>Craft</Link>
                 </li>
             </ul>
 
@@ -41,3 +44,5 @@ function NavBar(){
         </nav>
     )
 }
+
+export default NavBar
