@@ -1,5 +1,14 @@
+import QuestPanel from "../components/QuestPanel"
+import CraftablesPanel from "../components/CraftablesPanel"
+
 function HomePage() {
-    return <h1>Home</h1>
+    return (
+        <div>
+            <h1>Home</h1>
+            <QuestPanel />
+            <CraftablesPanel />
+        </div>
+    )
 }
 
 export default HomePage
