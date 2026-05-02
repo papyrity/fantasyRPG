@@ -1,5 +1,6 @@
 import QuestPanel from "../components/QuestPanel"
 import CraftablesPanel from "../components/CraftablesPanel"
+import RecentActivity from "../components/RecentActivity"
 
 function HomePage() {
     return (
@@ -7,6 +8,7 @@ function HomePage() {
             <h1>Home</h1>
             <QuestPanel />
             <CraftablesPanel />
+            <RecentActivity />
         </div>
     )
 }
