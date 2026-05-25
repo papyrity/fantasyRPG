@@ -1,13 +1,17 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
+import { api } from "../api";
 
-function LoginForm({ onLogin }) {
-    const [formData, setFormData] = useState({
-        username: '',
-        password: '',
-    });
 
-    const [error, setError] = useState([]);
+function LoginPage({ onLogin }) {
+    const [formData, setFormData] = useState({username: '', password: ''});
+
+    const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
+
+    const { login } = useAuth()
+    const navigate = useNavigate()
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -21,27 +25,14 @@ function LoginForm({ onLogin }) {
 
     const handleSubmit = async(e) => {
         e.preventDefault();
-        setError("");
+        setError(null);
         setIsLoading(true);
 
         try {
-            const response = await fetch('/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData),
-            });
-
-            const data = await response.json();
-
-            if(response.ok) {
-                onSuccess(data);
-            } else {
-                setError(data.error || 'Login Failed');
-            }
-        } catch (err) {
-            setError('Error. Please try again.');
+            await login(formData.username, formData.password)
+            navigate('/')
+        } catch(err) {
+            setError(err.message)
         } finally {
             setIsLoading(false)
         }
@@ -81,7 +72,6 @@ function LoginForm({ onLogin }) {
 
             <button
                 type="submit"
-                onSubmit={handleSubmit}
                 disabled={isLoading}
             >
                 {isLoading ? 'Signing in...' : 'Sign In'}
@@ -90,4 +80,4 @@ function LoginForm({ onLogin }) {
     )
 }
 
-export default LoginForm;
+export default LoginPage;

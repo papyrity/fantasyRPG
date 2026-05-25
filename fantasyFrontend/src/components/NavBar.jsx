@@ -1,8 +1,17 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
+import { useAuth } from '../contexts/AuthContext'
 
 function NavBar(){
     const [isOpen, setIsOpen] = useState(false)
+    const { user, loading, logout } = useAuth()
+    const navigate = useNavigate()
+
+    async function handleLogout() {
+        await logout();
+        setIsOpen(false)
+        navigate('/login')
+    }
 
     return (
         <nav>
@@ -24,8 +33,9 @@ function NavBar(){
                 </li>
             </ul>
 
-            <div>
-                <button onClick={() => setIsOpen(!isOpen)}><img src='/avatar.png' alt='User menu' /></button>
+            {loading ? null : (user ? (
+                 <div>
+                <button onClick={() => setIsOpen(!isOpen)}><img src='/avatar.png' alt='User menu' /><span>{user.username}</span></button>
                 {isOpen && (
                 <ul>
                     <li>
@@ -35,11 +45,14 @@ function NavBar(){
                         <Link to='/settings'>Settings</Link>
                     </li>
                     <li>
-                        <button onClick={() => {/* Handle logout */}}>Logout</button>
+                        <button onClick={handleLogout}>Logout</button>
                     </li>
                 </ul>
                 )}
             </div>
+            ) : (
+            <Link to='/login'>Log In</Link>
+            ))}
         </div>
         </nav>
     )
