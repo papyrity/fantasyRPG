@@ -1,3 +1,5 @@
+import { useAuth } from "../contexts/AuthContext";
+
 const activities = [
     {id: 'mine', label: 'Mine'},
     {id: 'chop', label: 'Chop'},
@@ -6,6 +8,8 @@ const activities = [
 ]
 
 function ActivityBar() {
+    const { user } = useAuth()
+    if(!user) return null
     return (
         <div>
             {activities.map((activity) => (

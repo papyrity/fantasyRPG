@@ -6,6 +6,7 @@ import CraftPage from './pages/CraftPage'
 import QuestsPage from './pages/QuestsPage'
 import ProfilePage from './pages/ProfilePage'
 import SettingsPage from './pages/SettingsPage'
+import LoginPage from './pages/LoginPage'
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="quests" element={<QuestsPage />} />
         <Route path="profile" element={<ProfilePage />} />
         <Route path="settings" element={<SettingsPage />} />
+        <Route path="login" element={<LoginPage />} />
       </Route>
     </Routes>
   )
