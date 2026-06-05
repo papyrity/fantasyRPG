@@ -7,7 +7,7 @@ const recentsList = [
 
 function RecentActivity() {
     return (
-        <div>
+        <div className="card">
             <h2>Recent Activity</h2>
             {recentsList.length === 0 ? (
                 <p>No recent activity</p>

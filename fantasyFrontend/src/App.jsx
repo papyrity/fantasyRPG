@@ -8,6 +8,8 @@ import ProfilePage from './pages/ProfilePage'
 import SettingsPage from './pages/SettingsPage'
 import LoginPage from './pages/LoginPage'
 
+//sample login user: alice pass: hunter2
+
 function App() {
   return (
     <Routes>
