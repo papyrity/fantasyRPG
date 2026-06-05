@@ -30,7 +30,7 @@ function LoginPage({ onLogin }) {
 
         try {
             await login(formData.username, formData.password)
-            navigate('/')
+            navigate('/home')
         } catch(err) {
             setError(err.message)
         } finally {

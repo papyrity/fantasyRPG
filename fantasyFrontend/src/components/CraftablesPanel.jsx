@@ -43,7 +43,7 @@ function CraftablesPanel() {
     const craftables = allRecipes.filter((recipe) => CraftableRecipes(recipe, playerInventory))
 
     return (
-        <div>
+        <div className="card">
             <h2>Craftable Items</h2>
             {craftables.length === 0 ? (
                 <p>Nothing ready to craft.</p>

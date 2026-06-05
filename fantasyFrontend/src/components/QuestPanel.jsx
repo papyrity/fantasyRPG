@@ -11,7 +11,7 @@ const currentQuest = {
 
 function QuestPanel() {
     return (
-        <div>
+        <div className="card">
         <h2>{currentQuest.title}</h2>
         <p>{currentQuest.description}</p>
         <ul>
