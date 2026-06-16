@@ -7,6 +7,7 @@ import QuestsPage from './pages/QuestsPage'
 import ProfilePage from './pages/ProfilePage'
 import SettingsPage from './pages/SettingsPage'
 import LoginPage from './pages/LoginPage'
+import RegistrationPage from './pages/RegistrationPage'
 import ProtectedRoute from './components/ProtectedRoute'
 
 //sample login user: alice pass: hunter2
@@ -27,6 +28,7 @@ function App() {
         <Route path="settings" element={<SettingsPage />} />
       </Route>
       <Route path="login" element={<LoginPage />} />
+      <Route path='register' element={<RegistrationPage />} />
     </Routes>
   )
 }

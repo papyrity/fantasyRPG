@@ -11,8 +11,8 @@ def register():
     if not username or not password:
         return {'error': 'Username and password are required.'}, 400
         
-    if len(password) < 6:
-        return {'error': 'Password must be at least 6 characters.'}, 400
+    if len(password) < 8:
+        return {'error': 'Password must be at least 8 characters.'}, 400
         
     existing = User.query.filter_by(username=username).first()
     if existing is not None:
