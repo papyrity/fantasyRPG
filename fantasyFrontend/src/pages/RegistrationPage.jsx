@@ -1,16 +1,19 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
-import { api } from "../api";
+import { Link } from "react-router-dom";
 
-
-function LoginPage({ onLogin }) {
-    const [formData, setFormData] = useState({username: '', password: ''});
+function RegistrationPage () {
+    const [formData, setFormData] = useState({
+        username: '', 
+        password: '',
+        passwordConfirmation: '',
+        });
 
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
-    const { login } = useAuth()
+    const { register } = useAuth()
     const navigate = useNavigate()
 
     const handleChange = (e) => {
@@ -26,10 +29,21 @@ function LoginPage({ onLogin }) {
     const handleSubmit = async(e) => {
         e.preventDefault();
         setError(null);
+
+        if(formData.password !== formData.passwordConfirmation) {
+            setError('Passwords do not match')
+            return
+        }
+
+        if(formData.password.length < 8) {
+            setError('Password must be at least 8 characters long.')
+            return
+        }
+        
         setIsLoading(true);
 
         try {
-            await login(formData.username, formData.password)
+            await register(formData.username, formData.password)
             navigate('/')
         } catch(err) {
             setError(err.message)
@@ -43,10 +57,10 @@ function LoginPage({ onLogin }) {
             {error && <div className="error-message">{error}</div>}
 
             <div className="form-group">
-                <label htmlFor="login-username">Username</label>
+                <label htmlFor="register-username">Username</label>
                 <input
                 type="text"
-                id="login-username"
+                id="register-username"
                 name="username"
                 value={formData.username}
                 onChange={handleChange}
@@ -57,10 +71,10 @@ function LoginPage({ onLogin }) {
             </div>
 
             <div className="form-group">
-                <label htmlFor="login-password">Password</label>
+                <label htmlFor="register-password">Password</label>
                 <input
                 type="password"
-                id="login-password"
+                id="register-password"
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
@@ -70,18 +84,32 @@ function LoginPage({ onLogin }) {
                 />
             </div>
 
+            <div className="form-group">
+                <label htmlFor="register-password-confirmation">Confirm Password</label>
+                <input
+                type="password"
+                id="register-password-confirmation"
+                name="passwordConfirmation"
+                value={formData.passwordConfirmation}
+                onChange={handleChange}
+                placeholder="Confirm Password"
+                required
+                disabled={isLoading}
+                />
+            </div>
+
             <button
                 type="submit"
                 disabled={isLoading}
             >
-                {isLoading ? 'Signing in...' : 'Sign In'}
+                {isLoading ? 'Creating Account...' : 'Sign Up'}
             </button>
             <p>
-                Don't have an account?{' '}
-                <Link to="/register">Sign Up</Link>
+                Already have an account?{' '}
+                <Link to="/login">Log In</Link>
             </p>
         </form>
     )
 }
 
-export default LoginPage;
+export default RegistrationPage;
